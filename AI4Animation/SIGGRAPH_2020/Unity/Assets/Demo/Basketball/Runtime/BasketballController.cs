@@ -58,7 +58,6 @@ public class BasketballController : NeuralAnimation {
 		Controller = new Controller(PlayerID);
 
 		GenerativeModel = GetComponent<GenerativeControl>();
-
 		Controller.Logic stand = Controller.AddLogic("Stand", () => Controller.QueryLeftJoystickVector().magnitude < 0.25f);
 		Controller.Function standControl = Controller.AddFunction("StandControl", (x) => TimeSeries.GetControl((int)x, 0.5f, 0.1f, 1f));
 		Controller.Function standCorrection = Controller.AddFunction("StandCorrection", (x) => TimeSeries.GetCorrection((int)x, 0.1f, 1f, 0f));

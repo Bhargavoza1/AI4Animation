@@ -6,6 +6,8 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
+
+/**<summary> complete visualization of bone structure of character  </summary>*/
 [ExecuteInEditMode]
 public class Actor : MonoBehaviour {
 
@@ -55,10 +57,13 @@ public class Actor : MonoBehaviour {
 		}
 	}
 
+	/** Get this object transform */
 	public Transform GetRoot() {
 		return transform;
 	}
 
+	/**<summary> Find multiple Transforms </summary>
+	<param name="name"> bone name  </param> */
 	public Transform[] FindTransforms(params string[] names) {
 		Transform[] transforms = new Transform[names.Length];
 		for(int i=0; i<transforms.Length; i++) {
@@ -67,11 +72,13 @@ public class Actor : MonoBehaviour {
 		return transforms;
 	}
 
+	/**<summary> Find Transforms in recursive manner </summary>
+	<param name="name"> bone name  </param> */
 	public Transform FindTransform(string name) {
 		Transform element = null;
 		Action<Transform> recursion = null;
-		recursion = new Action<Transform>((transform) => {
-			if(transform.name == name) {
+		recursion = new Action<Transform>((transform) => { //Action and func both are similar in Action return type is not mandatory
+			if (transform.name == name) {
 				element = transform;
 				return;
 			}
@@ -83,6 +90,7 @@ public class Actor : MonoBehaviour {
 		return element;
 	}
 
+	// never used
 	public Bone[] FindBones(params Transform[] transforms) {
 		Bone[] bones = new Bone[transforms.Length];
 		for(int i=0; i<bones.Length; i++) {
@@ -91,6 +99,7 @@ public class Actor : MonoBehaviour {
 		return bones;
 	}
 
+	// never used
 	public Bone[] FindBones(params string[] names) {
 		Bone[] bones = new Bone[names.Length];
 		for(int i=0; i<bones.Length; i++) {
@@ -99,14 +108,17 @@ public class Actor : MonoBehaviour {
 		return bones;
 	}
 
+	// never used 
 	public Bone FindBone(Transform transform) {
 		return FindBone(transform.name);
 	}
+
 
 	public Bone FindBone(string name) {
 		return Array.Find(Bones, x => x.GetName() == name);
 	}
 
+	// never used 
 	public Bone FindBoneContains(string name) {
 		return Array.Find(Bones, x => x.GetName().Contains(name));
 	}
@@ -121,6 +133,7 @@ public class Actor : MonoBehaviour {
 		return BoneNames;
 	}
 
+	// never used 
 	public int[] GetBoneIndices(params string[] names) {
 		int[] indices = new int[names.Length];
 		for(int i=0; i<indices.Length; i++) {
@@ -129,6 +142,8 @@ public class Actor : MonoBehaviour {
 		return indices;
 	}
 
+	/**<summary> Get all bones Transform  </summary>
+	<param name="name">all bones name  </param> */
 	public Transform[] GetBoneTransforms(params string[] names) {
 		Transform[] transforms = new Transform[names.Length];
 		for(int i=0; i<names.Length; i++) {
@@ -137,6 +152,7 @@ public class Actor : MonoBehaviour {
 		return transforms;
 	}
 
+	/**<summary> Extract Skeleton in recursive manner </summary>  */
 	public void ExtractSkeleton() {
 		ArrayExtensions.Clear(ref Bones);
 		Action<Transform, Bone> recursion = null;
@@ -156,6 +172,8 @@ public class Actor : MonoBehaviour {
 		BoneNames = new string[0];
 	}
 
+	/**<summary> Extract Skeleton in recursive manner </summary>
+	<param name="bones"> array of bones transform  </param> */
 	public void ExtractSkeleton(Transform[] bones) {
 		ArrayExtensions.Clear(ref Bones);
 		Action<Transform, Bone> recursion = null;
@@ -177,10 +195,13 @@ public class Actor : MonoBehaviour {
 		BoneNames = new string[0];
 	}
 
+	/**<summary> Extract Skeleton in recursive manner </summary>
+	<param name="bones"> array of bones name  </param> */
 	public void ExtractSkeleton(string[] bones) {
 		ExtractSkeleton(FindTransforms(bones));
 	}
 
+	// never used 
 	public void WriteTransforms(Matrix4x4[] values, string[] names) {
 		Action<Transform> recursion = null;
 		recursion = new Action<Transform>((t) => {
@@ -196,6 +217,7 @@ public class Actor : MonoBehaviour {
 		recursion(transform);
 	}
 
+	// never used 
 	public void SetBoneTransformations(Matrix4x4[] values) {
 		if(values.Length != Bones.Length) {
 			return;
@@ -206,6 +228,7 @@ public class Actor : MonoBehaviour {
 		}
 	}
 
+	// never used 
 	public void SetBoneTransformations(Matrix4x4[] values, params string[] bones) {
 		for(int i=0; i<bones.Length; i++) {
 			SetBoneTransformation(values[i], bones[i]);
@@ -220,6 +243,7 @@ public class Actor : MonoBehaviour {
 		}
 	}
 
+	/**<summary> get array of all bone's transformations </summary> */
 	public Matrix4x4[] GetBoneTransformations() {
 		Matrix4x4[] transformations = new Matrix4x4[Bones.Length];
 		for(int i=0; i<transformations.Length; i++) {
@@ -228,6 +252,8 @@ public class Actor : MonoBehaviour {
 		return transformations;
 	}
 
+	/**<summary> get array of all bone's transformations </summary>
+	<param name="bones"> array of bones name  </param> */
 	public Matrix4x4[] GetBoneTransformations(params string[] bones) {
 		Matrix4x4[] transformations = new Matrix4x4[bones.Length];
 		for(int i=0; i<transformations.Length; i++) {
@@ -236,10 +262,13 @@ public class Actor : MonoBehaviour {
 		return transformations;
 	}
 
+	/**<summary> get one bone's transformations </summary>
+	<param name="bone"> bone name  </param> */
 	public Matrix4x4 GetBoneTransformation(string bone) {
 		return FindBone(bone).Transform.GetWorldMatrix();
 	}
 
+	// never used 
 	public void SetBoneVelocities(Vector3[] values) {
 		if(values.Length != Bones.Length) {
 			return;
@@ -249,6 +278,7 @@ public class Actor : MonoBehaviour {
 		}
 	}
 
+	// never used 
 	public void SetBoneVelocities(Vector3[] values, params string[] bones) {
 		for(int i=0; i<bones.Length; i++) {
 			SetBoneVelocity(values[i], bones[i]);
@@ -262,6 +292,7 @@ public class Actor : MonoBehaviour {
 		}
 	}
 
+	/**<summary> get all bones's velocity </summary> */
 	public Vector3[] GetBoneVelocities() {
 		Vector3[] velocities = new Vector3[Bones.Length];
 		for(int i=0; i<velocities.Length; i++) {
@@ -270,6 +301,8 @@ public class Actor : MonoBehaviour {
 		return velocities;
 	}
 
+	/**<summary> get all bone's velocity </summary>
+	<param name="bones"> array of all bones name  </param> */
 	public Vector3[] GetBoneVelocities(params string[] bones) {
 		Vector3[] velocities = new Vector3[bones.Length];
 		for(int i=0; i<velocities.Length; i++) {
@@ -278,10 +311,13 @@ public class Actor : MonoBehaviour {
 		return velocities;
 	}
 
+	/**<summary> get one bone's velocity </summary>
+	<param name="bone"> bone name  </param> */
 	public Vector3 GetBoneVelocity(string bone) {
 		return FindBone(bone).Velocity;
 	}
 
+	/**<summary> get all bone's positions </summary>  */
 	public Vector3[] GetBonePositions() {
 		Vector3[] positions = new Vector3[Bones.Length];
 		for(int i=0; i<positions.Length; i++) {
@@ -290,6 +326,8 @@ public class Actor : MonoBehaviour {
 		return positions;
 	}
 
+	/**<summary> get all bone's positions </summary>
+	<param name="bones"> array of all bones name  </param> */
 	public Vector3[] GetBonePositions(params string[] bones) {
 		Vector3[] positions = new Vector3[bones.Length];
 		for(int i=0; i<positions.Length; i++) {
@@ -298,10 +336,13 @@ public class Actor : MonoBehaviour {
 		return positions;
 	}
 
+	/**<summary> get one bone's positions </summary>
+	<param name="bone">  bone name  </param> */
 	public Vector3 GetBonePosition(string bone) {
 		return FindBone(bone).Transform.position;
 	}
 
+	/**<summary> get all bone's Rotations </summary>  */
 	public Quaternion[] GetBoneRotations() {
 		Quaternion[] rotation = new Quaternion[Bones.Length];
 		for(int i=0; i<rotation.Length; i++) {
@@ -310,6 +351,8 @@ public class Actor : MonoBehaviour {
 		return rotation;
 	}
 
+	/**<summary> get all bone's Rotations </summary>
+	<param name="bones"> array of all bones name  </param> */
 	public Quaternion[] GetBoneRotations(params string[] bones) {
 		Quaternion[] rotation = new Quaternion[bones.Length];
 		for(int i=0; i<rotation.Length; i++) {
@@ -318,10 +361,13 @@ public class Actor : MonoBehaviour {
 		return rotation;
 	}
 
+	/**<summary> get one bone's Rotations </summary>
+	<param name="bone">bone name</param> */
 	public Quaternion GetBoneRotation(string bone) {
 		return FindBone(bone).Transform.rotation;
 	}
 
+	/**<summary> get root bone </summary>  */
 	public Bone[] GetRootBones() {
 		List<Bone> bones = new List<Bone>();
 		for(int i=0; i<Bones.Length; i++) {
@@ -334,11 +380,13 @@ public class Actor : MonoBehaviour {
 
 	public void Draw() {
 		UltiDraw.Begin();
+		//draw cube at root bone
 		if(DrawRoot) {
 			UltiDraw.DrawCube(GetRoot().position, GetRoot().rotation, 0.1f, UltiDraw.Black);
 			UltiDraw.DrawTranslateGizmo(GetRoot().position, GetRoot().rotation, 0.1f);
 		}
 
+		//draw full skeleton
 		if(DrawSkeleton) {
 			Action<Bone> recursion = null;
 			recursion = new Action<Bone>((bone) => {
@@ -365,6 +413,7 @@ public class Actor : MonoBehaviour {
 			}
 		}
 
+		//draw velocity
 		if(DrawVelocities) {
 			for(int i=0; i<Bones.Length; i++) {
 				UltiDraw.DrawArrow(
@@ -378,6 +427,7 @@ public class Actor : MonoBehaviour {
 			}
 		}
 
+		//draw transforms
 		if(DrawTransforms) {
 			Action<Bone> recursion = null;
 			recursion = new Action<Bone>((bone) => {
@@ -392,10 +442,12 @@ public class Actor : MonoBehaviour {
 		}
 		UltiDraw.End();
 
+		//same as  DrawSkeleton
 		if(DrawSketch) {
 			Sketch(GetBoneTransformations(), BoneColor);
 		}
 
+		//create ghost of character
 		if(DrawHistory) {
 			if(DrawSkeleton) {
 				int step = Mathf.Max(Sampling, 1);
@@ -524,7 +576,8 @@ public class Actor : MonoBehaviour {
 		}
 	}
 
-	#if UNITY_EDITOR
+#if UNITY_EDITOR
+	// use for customizing gui in editor
 	[CustomEditor(typeof(Actor))]
 	public class Actor_Editor : Editor {
 
@@ -539,6 +592,7 @@ public class Actor : MonoBehaviour {
 	
 			Target.DrawRoot = EditorGUILayout.Toggle("Draw Root", Target.DrawRoot);
 			Target.DrawSkeleton = EditorGUILayout.Toggle("Draw Skeleton", Target.DrawSkeleton);
+			//Target.DrawSketch = EditorGUILayout.Toggle("Draw Sketch ", Target.DrawSketch);
 			Target.DrawTransforms = EditorGUILayout.Toggle("Draw Transforms", Target.DrawTransforms);
 			Target.DrawVelocities = EditorGUILayout.Toggle("Draw Velocities", Target.DrawVelocities);
 			Target.DrawHistory = EditorGUILayout.Toggle("Draw History", Target.DrawHistory);

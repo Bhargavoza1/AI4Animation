@@ -57,7 +57,7 @@ public class VoxelCollider : MonoBehaviour {
         if(EditorApplication.isCompiling) {
             return;
         }
-        if(UnityEditor.Experimental.SceneManagement.PrefabStageUtility.GetPrefabStage(gameObject) != null) {
+        if(UnityEditor.SceneManagement.PrefabStageUtility.GetPrefabStage(gameObject) != null) {
             return;
         }
         if(EditorSceneManager.GetActiveScene() != gameObject.scene) {

@@ -33,6 +33,10 @@ public class Controller {
 
 	private float ButtonController = 0f;
 
+	/**go to this link for Func  https://www.tutorialsteacher.com/csharp/csharp-func-delegate */
+	/**<summary> delegate operations with class </summary>
+	<param name="name"> work as uniq id  </param>
+	<param name="func"> pass delegate function with return type bool </param>*/
 	public class Logic {
 		public string Name = string.Empty;
 		public Func<bool> Query = () => false;
@@ -42,6 +46,9 @@ public class Controller {
 		}
 	}
 
+	/**<summary> delegate operations with class </summary>
+	 <param name="name"> work as uniq id  </param>
+	 <param name="func"> pass delegate function with return type float </param>*/
 	public class Value {
 		public string Name = string.Empty;
 		public Func<float> Query = () => 0f;
@@ -50,7 +57,9 @@ public class Controller {
 			Query = func;
 		}
 	}
-
+	/**<summary> delegate operations with class </summary>
+	<param name="name"> work as uniq id  </param>
+	<param name="func"> pass delegate function with param type float and return type float </param>*/
 	public class Function {
 		public string Name = string.Empty;
 		public Func<float, float> Query = (x) => 0f;
@@ -60,10 +69,13 @@ public class Controller {
 		}
 	}
 
+	/**<summary> constructor </summary>
+	 <param name="id">   </param>*/
 	public Controller(int id) {
 		ID = id;
 	}
 
+	/**<summary> used in basketball controller  </summary>*/
 	public bool GetButton(Button button) {
 		switch(ControlType) {
 			case TYPE.Gamepad:
@@ -96,6 +108,7 @@ public class Controller {
 		}
 
 		//Left Joystick
+		//basic movement
 		{
 			Vector3 previous = LeftControllerVector;
 			switch(ControlType) {
@@ -125,7 +138,10 @@ public class Controller {
 			LeftControllerMomentum = LeftControllerVector - previous;
 		}
 
+
+
 		//Right Joystick
+		//mouse movement
 		{
 			Vector3 previous = RightControllerVector;
 			switch(ControlType) {
@@ -149,6 +165,7 @@ public class Controller {
 		}
 
 		//Heuristic Values
+		//in game kind of turn character from it Y axis.
 		switch(ControlType) {
 			case TYPE.Gamepad:
 				float threshold = 0.9f;
@@ -217,6 +234,7 @@ public class Controller {
 		UltiDraw.End();
 	}
 
+	// dont know
 	public void GUI(Camera camera) {
 		UltiDraw.Begin(camera);
 		Vector2 center = new Vector2(0.5f, 0.1f);
@@ -239,6 +257,10 @@ public class Controller {
 		return Camera.main.ScreenToViewportPoint(Input.mousePosition);
 	}
 
+	/**<summary> Append value to the array of Logic types. and check if it exists inside array.  </summary>
+	<param name="name"> work as uniq id  </param>
+	<param name="func"> pass delegate function return type bool </param>
+	<returns> Logic object </returns>*/
 	public Logic AddLogic(string name, Func<bool> func) {
 		Logic item = System.Array.Find(Logics, x=>x.Name == name);
 		if(item != null) {
@@ -250,6 +272,9 @@ public class Controller {
 		return item;
 	}
 
+	/**<summary> Find value from the array of Logic types. and check if it exists inside array or not.  </summary>
+	<param name="name"> work as uniq id  </param>
+	<returns> bool value </returns> */
 	public bool QueryLogic(string name) {
 		Logic item = System.Array.Find(Logics, x=>x.Name == name);
 		if(item == null) {
@@ -259,6 +284,7 @@ public class Controller {
 		return item.Query();
 	}
 
+	//not used anywhere
 	public bool[] QueryLogics(string[] names) {
 		bool[] items = new bool[names.Length];
 		for(int i=0; i<names.Length; i++) {
@@ -267,6 +293,9 @@ public class Controller {
 		return items;
 	}
 
+	/**<summary> Find multiple values value from the array of Logic types. </summary>
+	<param name="name">array of String names </param>
+	<returns> 1 or 0 on the basis of QueryLogic(QueryLogic retun type is bool) return array of bool </returns> */
 	public float[] PoolLogics(string[] names) {
 		float[] items = new float[names.Length];
 		for(int i=0; i<names.Length; i++) {
@@ -275,6 +304,10 @@ public class Controller {
 		return items;
 	}
 
+	/**<summary> Append value to the array of Value types. and check if it exists inside array.  </summary>
+	<param name="name"> work as uniq id  </param>
+	<param name="func"> pass delegate function return type float </param>
+	<returns> value object </returns>*/
 	public Value AddValue(string name, Func<float> func) {
 		Value value = System.Array.Find(Values, x=>x.Name == name);
 		if(value != null) {
@@ -286,6 +319,9 @@ public class Controller {
 		return value;
 	}
 
+	/**<summary> Find value from the array of Value types. and check if it exists inside array or not.  </summary>
+	<param name="name"> work as uniq id  </param>
+	<returns> float value </returns> */
 	public float QueryValue(string name) {
 		Value value = System.Array.Find(Values, x=>x.Name == name);
 		if(value == null) {
@@ -295,6 +331,7 @@ public class Controller {
 		return value.Query();
 	}
 
+	//not used anywhere
 	public float[] QueryValues(string[] names) {
 		float[] items = new float[names.Length];
 		for(int i=0; i<names.Length; i++) {
@@ -303,6 +340,9 @@ public class Controller {
 		return items;
 	}
 
+	/**<summary> Find multiple values value from the array of Value types. </summary>
+	<param name="name">array of String names </param>
+	<returns> return array of float </returns> */
 	public float[] PoolValues(string[] names) {
 		float[] items = new float[names.Length];
 		for(int i=0; i<names.Length; i++) {
@@ -311,6 +351,10 @@ public class Controller {
 		return items;
 	}
 
+	/**<summary> Append value to the array of Function types. and check if it exists inside array.  </summary>
+	<param name="name"> work as uniq id  </param>
+	<param name="func"> pass delegate function with parameters of type float return type float </param>
+	<returns> Function type object </returns>*/
 	public Function AddFunction(string name, Func<float, float> func) {
 		Function function = System.Array.Find(Functions, x=>x.Name == name);
 		if(function != null) {
@@ -322,6 +366,10 @@ public class Controller {
 		return function;
 	}
 
+	/**<summary> Find value from the array of Function types. and check if it exists inside array or not.  </summary>
+	<param name="name"> work as uniq id  </param>
+	<param name="arg">  </param>
+	<returns> float value </returns> */
 	public float QueryFunction(string name, float arg) {
 		Function function = System.Array.Find(Functions, x=>x.Name == name);
 		if(function == null) {
@@ -331,6 +379,7 @@ public class Controller {
 		return function.Query(arg);
 	}
 
+	//not used anywhere
 	public Vector3 QueryMoveKeyboard() {
 		Vector3 move = Vector3.zero;
 		if(Input.GetKey(KeyCode.W)) {
@@ -348,6 +397,7 @@ public class Controller {
 		return move.normalized;
 	}
 
+	//not used anywhere
 	public float QueryTurnKeyboard() {
 		float turn = 0f;
 		if(Input.GetKey(KeyCode.Q)) {
