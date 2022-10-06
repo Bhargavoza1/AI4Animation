@@ -285,6 +285,7 @@ public class Actor : MonoBehaviour {
 		}
 	}
 
+	// never used 
 	public void SetBoneVelocity(Vector3 value, string bone) {
 		Bone b = FindBone(bone);
 		if(b != null) {

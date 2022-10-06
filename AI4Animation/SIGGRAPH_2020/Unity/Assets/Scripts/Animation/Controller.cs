@@ -308,6 +308,7 @@ public class Controller {
 	<param name="name"> work as uniq id  </param>
 	<param name="func"> pass delegate function return type float </param>
 	<returns> value object </returns>*/
+	//not used anywhere
 	public Value AddValue(string name, Func<float> func) {
 		Value value = System.Array.Find(Values, x=>x.Name == name);
 		if(value != null) {
@@ -322,6 +323,7 @@ public class Controller {
 	/**<summary> Find value from the array of Value types. and check if it exists inside array or not.  </summary>
 	<param name="name"> work as uniq id  </param>
 	<returns> float value </returns> */
+	//not used anywhere
 	public float QueryValue(string name) {
 		Value value = System.Array.Find(Values, x=>x.Name == name);
 		if(value == null) {
@@ -343,6 +345,7 @@ public class Controller {
 	/**<summary> Find multiple values value from the array of Value types. </summary>
 	<param name="name">array of String names </param>
 	<returns> return array of float </returns> */
+	//not used anywhere
 	public float[] PoolValues(string[] names) {
 		float[] items = new float[names.Length];
 		for(int i=0; i<names.Length; i++) {
