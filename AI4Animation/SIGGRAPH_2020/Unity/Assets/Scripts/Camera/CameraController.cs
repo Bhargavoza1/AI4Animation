@@ -159,7 +159,8 @@ public class CameraController : MonoBehaviour
 		}
 	}
 	/// <summary>
-	///  This option will place the camera on the top of a character's head.
+	///  The camera will be placed in a proper position facing toward the character and will follow the character on movement. 
+
 	/// </summary>
 	private IEnumerator UpdateFollowCamera()
 	{ // this Coroutines waits until the every end of the frame
@@ -247,7 +248,8 @@ public class CameraController : MonoBehaviour
 	}
 
 	/// <summary>
-	///  Camera act in Third-person view.
+	/// The camera will be placed in a proper position facing toward the character and will follow the character on movement.
+	/// Both options act the same but in follow mode we can rotate our camera in yaw, pitch as a pivot to the actor, and also change FOV(replicate the behavior by increasing and decreasing the distance between actor and camera).
 	/// </summary>
 	private IEnumerator UpdateFixedCamera()
 	{// this Coroutines waits until the every end of the frame
